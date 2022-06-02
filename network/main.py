@@ -3,8 +3,9 @@ import numpy as np
 
 
 def load_yolo():
-    net = cv2.dnn.readNet("yolov3.weights", "yolov3.cfg")
-    with open("obj.names", "r") as f:
+    net = cv2.dnn.readNet("network/yolov3.weights",
+                          "network/yolov3.cfg")
+    with open("network/obj.names", "r") as f:
         classes = [line.strip() for line in f.readlines()]
     layers_names = net.getLayerNames()
     output_layers = [layers_names[i - 1] for i in net.getUnconnectedOutLayers()]
@@ -16,11 +17,6 @@ def load_image(img_path):
     img = cv2.resize(img, None, fx=1, fy=1)
     height, width, channels = img.shape
     return img, height, width, channels
-
-
-def start_webcam():
-    cap = cv2.VideoCapture(0)
-    return cap
 
 
 def display_blob(blob):
@@ -71,8 +67,8 @@ def get_img_with_weapons(boxes, confs, class_ids, classes, img):
             cv2.rectangle(img, (x, y), (x + w, y + h), color, 2)
             cv2.putText(img, "Gun" + " " + percentage, (x, y - 5), font, 0.8, color, 1)
     img = cv2.resize(img, (800, 600))
-    cv2.imshow("Pistol Detector", img)
-    cv2.imwrite("hello.jpg", img)
+    # cv2.imshow("Pistol Detector", img)
+    # cv2.imwrite("hello.jpg", img)
     return img
 
 
@@ -82,36 +78,8 @@ def image_detect(img_path):
     blob, outputs = detect_objects(image, model, output_layers)
     boxes, confs, class_ids = get_box_dimensions(outputs, height, width)
     img = get_img_with_weapons(boxes, confs, class_ids, classes, image)
-    while True:
-        cv2.waitKey(1)
+    return img
 
 
-def webcam_detect():
-    model, classes, output_layers = load_yolo()
-    cap = start_webcam()
-    while True:
-        _, frame = cap.read()
-        height, width, channels = frame.shape
-        blob, outputs = detect_objects(frame, model, output_layers)
-        boxes, confs, class_ids = get_box_dimensions(outputs, height, width)
-        get_img_with_weapons(boxes, confs, class_ids, classes, frame)
-        key = cv2.waitKey(1)
-        if key == 27:
-            break
-    cap.release()
-
-
-def start_video(video_path):
-    model, classes, output_layers = load_yolo()
-    cap = cv2.VideoCapture(video_path)
-    while True:
-        _, frame = cap.read()
-        height, width, channels = frame.shape
-        blob, outputs = detect_objects(frame, model, output_layers)
-        boxes, confs, class_ids = get_box_dimensions(outputs, height, width)
-        get_img_with_weapons(boxes, confs, class_ids, classes, frame)
-        cv2.waitKey(1)
-
-
-if __name__ == '__main__':
-    image_detect("images/img_10.png")
+# if __name__ == '__main__':
+#     image_detect("static/upload/oboi_priroda_1440x900.jpg")
