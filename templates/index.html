@@ -1,0 +1,51 @@
+{% extends "bootstrap/base.html" %}
+
+{% block content %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,300;0,500;0,600;0,900;1,400;1,800&display=swap" rel="stylesheet">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <div class="logo"><img src="https://psv4.userapi.com/c235031/u165908436/docs/d46/f2a1fe642c9e/logo.png?extra=sFLr0UvBJ_WEU-0FYuzQGpClxW_GpxOdrsIcUUixJmGQLg-a9nBTQX1NtFuMAhNtDlVQ6s7L1L7ec18zA7XohyCbiGzs74j9VyjA1bZMWgekCPyGTtxGx0IMw7hClU9Uew4LF8gFK2sZ89KfLg3Msaal" alt=""></div>
+        <div class="title"><h1>pistol detecting</h1></div>
+    </header>
+    <main>
+        <section>
+            <div class="container">
+                <div class="text-info"><h2>Neural network will show the percent of matching object with pistol and highlight it</h2></div>
+                <div class="main-buttons">
+                    <form action="/" method="post" enctype="multipart/form-data">
+                        <input class="action-button" type="file" name="file" required>
+                        <input class="action-button" type="submit" value="Submit">
+                    </form>
+                </div>
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        <ul>
+                        {% for message in messages %}
+                            <li class="img-message">{{ message }}</li>
+                        {% endfor %}
+                        </ul>
+                    {% endif %}
+                {% endwith %}
+            {% if filename %}
+            <div class="main-img">
+                <img src="{{ url_for('display_image', filename=filename) }}" alt="">
+            </div>
+            {% endif %}
+            </div>
+        </section>
+    </main>
+</body>
+</html>
+{% endblock %}
