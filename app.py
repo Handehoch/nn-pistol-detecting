@@ -4,6 +4,7 @@ from werkzeug.utils import secure_filename
 import os
 import cv2
 from network.main import image_detect
+import gunicorn
 
 app = Flask(__name__)
 Bootstrap(app)
@@ -47,6 +48,7 @@ def upload_image():
         flash('Image successfully uploaded and displayed below')
         return render_template('index.html', filename=filename)
 
+    print(gunicorn.__version__)
     flash("Allowed image types are: png, jpg, jpeg")
     return redirect(request.url)
 
