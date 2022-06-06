@@ -48,7 +48,7 @@ def upload_image():
         flash('Image successfully uploaded and displayed below')
         return render_template('index.html', filename=filename)
 
-    print(gunicorn.__version__)
+    # print(gunicorn.__version__)
     flash("Allowed image types are: png, jpg, jpeg")
     return redirect(request.url)
 
