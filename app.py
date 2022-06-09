@@ -4,7 +4,6 @@ from werkzeug.utils import secure_filename
 import os
 import cv2
 from network.main import image_detect
-import gunicorn
 
 app = Flask(__name__)
 Bootstrap(app)
