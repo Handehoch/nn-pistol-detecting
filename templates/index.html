@@ -16,33 +16,41 @@
 </head>
 <body>
     <header>
-        <div class="logo"><img src="https://psv4.userapi.com/c235031/u165908436/docs/d46/f2a1fe642c9e/logo.png?extra=sFLr0UvBJ_WEU-0FYuzQGpClxW_GpxOdrsIcUUixJmGQLg-a9nBTQX1NtFuMAhNtDlVQ6s7L1L7ec18zA7XohyCbiGzs74j9VyjA1bZMWgekCPyGTtxGx0IMw7hClU9Uew4LF8gFK2sZ89KfLg3Msaal" alt=""></div>
+        <div class="logo"><img src="../static/upload/logo.png" alt=""></div>
         <div class="title"><h1>pistol detecting</h1></div>
     </header>
     <main>
         <section>
             <div class="container">
-                <div class="text-info"><h2>Neural network will show the percent of matching object with pistol and highlight it</h2></div>
-                <div class="main-buttons">
-                    <form action="/" method="post" enctype="multipart/form-data">
-                        <input class="action-button" type="file" name="file" required>
-                        <input class="action-button" type="submit" value="Submit">
-                    </form>
+                <div class="content-up">
+                    <div class="text-info"><h2>Neural network will show the percent of matching object with pistol and highlight it</h2></div>
+                    <div class="main-buttons">
+                        <form action="/" method="post" enctype="multipart/form-data">
+                            <div class="action-button">
+                                <span>SELECT IMAGE</span>
+                                <input type="file" name="file" required>
+                            </div>
+                            <div class="action-button">
+                                <span>UPLOAD FILE</span>
+                                <input type="submit" value="Submit">
+                            </div>
+                        </form>
+                    </div>
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            <ul>
+                            {% for message in messages %}
+                                <li class="img-message">{{ message }}</li>
+                            {% endfor %}
+                            </ul>
+                        {% endif %}
+                    {% endwith %}
                 </div>
-                {% with messages = get_flashed_messages() %}
-                    {% if messages %}
-                        <ul>
-                        {% for message in messages %}
-                            <li class="img-message">{{ message }}</li>
-                        {% endfor %}
-                        </ul>
-                    {% endif %}
-                {% endwith %}
-            {% if filename %}
-            <div class="main-img">
-                <img src="{{ url_for('display_image', filename=filename) }}" alt="">
-            </div>
-            {% endif %}
+                {% if filename %}
+                    <div class="main-img">
+                        <img src="{{ url_for('display_image', filename=filename) }}" alt="">
+                    </div>
+                {% endif %}
             </div>
         </section>
     </main>
