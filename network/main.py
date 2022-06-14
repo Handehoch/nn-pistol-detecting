@@ -79,7 +79,3 @@ def image_detect(img_path):
     boxes, confs, class_ids = get_box_dimensions(outputs, height, width)
     img = get_img_with_weapons(boxes, confs, class_ids, classes, image)
     return img
-
-
-# if __name__ == '__main__':
-#     image_detect("static/upload/oboi_priroda_1440x900.jpg")

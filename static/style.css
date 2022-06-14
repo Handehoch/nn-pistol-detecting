@@ -67,6 +67,7 @@ main {
 
 .text-info h2 {
     font-weight: 400;
+    color: black;
 }
 .main-buttons form {
     margin-bottom: 30px;
